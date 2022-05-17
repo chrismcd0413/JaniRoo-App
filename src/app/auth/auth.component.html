@@ -1,0 +1,18 @@
+<ion-content [fullscreen]="true">
+    <div fxFlex fxLayout="row" class="header-image">
+      <ion-img src="../../assets/Images/1.svg"></ion-img>
+    </div>
+    <div fxFlex fxLayout="row" class="inputs">
+      <form [formGroup]="form" fxFlex fxLayout="column" fxLayoutGap="24px">
+        <ion-item class="input-item">
+          <ion-label position="stacked">Email Address</ion-label>
+          <ion-input inputmode="email" type="email" placeholder="email@work.com" [autofocus]="true" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input inputmode="text" type="password" placeholder="**********" [autofocus]="true" formControlName="password"></ion-input>
+        </ion-item>
+      </form>
+    </div>
+    <ion-button class="button" expand="block" fill="solid" color="primary" [disabled]="form.invalid" fxFlex (click)="login()">Log In</ion-button>
+</ion-content>
