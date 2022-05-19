@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { TimeService } from '../shared-services/Time/time.service';
 
 @Component({
   selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  templateUrl: 'schedules.page.html',
+  styleUrls: ['schedules.page.scss']
 })
-export class Tab1Page implements OnInit, OnDestroy {
+export class SchedulesPage implements OnInit, OnDestroy {
   items = [
     {
       location: 'Republic Waste - Longview',
@@ -36,9 +38,13 @@ export class Tab1Page implements OnInit, OnDestroy {
   ];
   activeTimesheet;
   isCheckedIn;
+  view = 'today';
   private subs: Subscription[] = [];
   constructor(
-    private timeService: TimeService
+    private timeService: TimeService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private navController: NavController
   ) {}
 
   ngOnInit(): void {
@@ -56,5 +62,12 @@ export class Tab1Page implements OnInit, OnDestroy {
 
   checkInToLocation(id, label) {
     this.timeService.checkIn(id, label);
+  }
+  segmentChanged(e) {
+    this.view = e.detail.value;
+  }
+  navigateToLocation(id) {
+    // this.navController.navigateRoot(['work']);
+    this.navController.navigateForward(['work'], {relativeTo: this.route, queryParams: {location: id}});
   }
 }

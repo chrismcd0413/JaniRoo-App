@@ -2,11 +2,13 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { SchedulesPage } from './schedules.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
-import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { SchedulesRoutingModule } from './schedules-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { WorkComponent } from './work/work.component';
+import { ChecklistComponent } from './work/checklist/checklist.component';
 
 @NgModule({
   imports: [
@@ -14,9 +16,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab1PageRoutingModule,
+    SchedulesRoutingModule,
     FlexLayoutModule
   ],
-  declarations: [Tab1Page]
+  declarations: [SchedulesPage, WorkComponent, ChecklistComponent]
 })
-export class Tab1PageModule {}
+export class SchedulesModule {}

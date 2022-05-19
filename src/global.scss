@@ -37,7 +37,40 @@
   line-height: 24px;
   letter-spacing: 0.363636px;
 }
+.global-info-content {
+  font-family: 'SF Pro Display';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+letter-spacing: 0.382353px;
+}
 .loading-indicator {
   --spinner-color: var(--ion-color-primary);
   border-radius: 4px;
+}
+.header-text {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 26px;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+.content-text {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.7px;
+}
+.section-header-text {
+  font-family: "SF Pro Display";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 20px;
+  letter-spacing: 0.7px;
 }

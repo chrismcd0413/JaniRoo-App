@@ -27,7 +27,7 @@ export class TimeService {
 
     const loadingIndicator = this.createLoadingIndicator('Checking you in...');
     (await loadingIndicator).present();
-    await delay(5000);
+    await delay(1000);
 
     // CHECK IF GEO IS ENABLED ON LOCATION
     // IF YES, CHECK IF USER IS IN RADIUS
