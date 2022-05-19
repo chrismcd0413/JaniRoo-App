@@ -1,16 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div fxFlex class="header-area" fxLayout="column" fxLayoutGap="16px">
+    <span class="welcome-text" fxFlex>Good Morning, Chris</span>
+    <ion-segment value="today">
+      <ion-segment-button value="today">
+        <ion-label>Today</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="upcoming">
+        <ion-label>Upcoming</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div fxFlex class="container" fxLayout="column" fxLayoutGap="16px">
+    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of items">
+      <span class="global-info-header">{{ item.location }}</span>
+      <span class="info-details">After: {{ item.start }}</span>
+      <span class="info-details">Before: {{ item.end }}</span>
+      <ion-button color="success" *ngIf="isCheckedIn && activeTimesheet.locId === item.locId">Start Working</ion-button>
+      <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkInToLocation(item.locId, item.location)">Clock In</ion-button>
+    </div>
+  </div>
 </ion-content>

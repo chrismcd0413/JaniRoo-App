@@ -14,9 +14,10 @@ import { environment } from 'src/environments/environment';
 import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ActiveCheckInComponent } from './active-check-in/active-check-in.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent],
+  declarations: [AppComponent, AuthComponent, ActiveCheckInComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
