@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-work',
@@ -7,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private navController: NavController
+  ) { }
 
   ngOnInit() {}
-
+  goBack() {
+    this.navController.navigateBack('/tabs/schedule');
+  }
+  enterChecklist(checklistId) {
+    this.navController.navigateForward('/tabs/schedule/work/checklist', {queryParams: {id: checklistId}});
+  }
 }

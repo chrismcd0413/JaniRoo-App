@@ -13,7 +13,7 @@ const routes: Routes = [
       },
       {
         path: 'locations',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        loadChildren: () => import('../locations/locations.module').then(m => m.LocationsPageModule)
       },
       {
         path: 'inbox',

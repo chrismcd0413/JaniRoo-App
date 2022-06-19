@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import * as moment from 'moment-timezone';
 import { Subscription } from 'rxjs';
 import { TimeService } from '../shared-services/Time/time.service';
 
@@ -39,6 +40,7 @@ export class SchedulesPage implements OnInit, OnDestroy {
   activeTimesheet;
   isCheckedIn;
   view = 'today';
+  greetingMessage = 'Hello';
   private subs: Subscription[] = [];
   constructor(
     private timeService: TimeService,
@@ -59,7 +61,18 @@ export class SchedulesPage implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.subs.forEach(x => x.unsubscribe());
   }
-
+  ionViewWillEnter() {
+    const nowHour = moment().get('hour');
+    if (nowHour < 12) {
+      this.greetingMessage = 'Good Morning';
+    }
+    if (nowHour > 12 && nowHour < 17) {
+      this.greetingMessage = 'Good Afternoon';
+    }
+    if (nowHour > 17) {
+      this.greetingMessage = 'Good Evening';
+    }
+  }
   checkInToLocation(id, label) {
     this.timeService.checkIn(id, label);
   }

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth.guard';
 import { SchedulesPage } from './schedules.page';
+import { ChecklistComponent } from './work/checklist/checklist.component';
+import { TaskDetailsComponent } from './work/checklist/task-details/task-details.component';
 import { WorkComponent } from './work/work.component';
 
 const routes: Routes = [
@@ -23,11 +25,13 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard],
+            component: ChecklistComponent
           },
           {
             path: 'taskDetail',
-            canActivate: [AuthGuard]
+            canActivate: [AuthGuard],
+            component: TaskDetailsComponent
           }
         ]
       }

@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <div fxFlex class="header-area" fxLayout="column" fxLayoutGap="16px">
-    <span class="welcome-text" fxFlex>Good Morning, Chris</span>
+    <span class="welcome-text" fxFlex>{{ greetingMessage}}, Chris</span>
     <ion-segment value="today" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="today">
         <ion-label>Today</ion-label>
