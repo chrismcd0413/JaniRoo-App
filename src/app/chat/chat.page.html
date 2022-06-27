@@ -1,0 +1,19 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <span fxFlex class="header-text center-header">Chat Groups</span>
+    </div>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" class="chat-group-item" fxLayoutAlign="start center" (click)="enterChatRoom()">
+      <span fxFlex class="section-header-text">Republic Waste - Longview (Team Chat)</span>
+      <ion-badge>10</ion-badge>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" class="chat-group-item" fxLayoutAlign="start center" (click)="enterChatRoom()">
+      <span fxFlex class="section-header-text">Time Off Requests</span>
+      <ion-badge>10</ion-badge>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,21 @@
+.status-blob-active {
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+  background-color: green;
+}
+.status-blob-pending {
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+  background-color: yellow;
+}
+.status-blob-out {
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+  background-color: red;
+}
+.time-row {
+  padding-left: 25px;
+}

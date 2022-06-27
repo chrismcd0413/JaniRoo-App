@@ -8,6 +8,10 @@ const routes: Routes = [
     path: '',
     component: LocationsPage,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'location-dashboard',
+    loadChildren: () => import('./location-dashboard/location-dashboard.module').then( m => m.LocationDashboardPageModule)
   }
 ];
 

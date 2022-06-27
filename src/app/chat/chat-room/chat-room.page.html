@@ -1,0 +1,107 @@
+<ion-content [fullscreen]="true" class="has-footer" [scrollEvents]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+      <span fxFlex class="header-text"
+        >Republic Waste - Longview (Team Chat)</span
+      >
+    </div>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="!testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': !testBool, 'other-message': testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="!testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': !testBool, 'other-message': testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="!testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': !testBool, 'other-message': testBool}" >
+        <span fxFlex class="chat-text">This is a test message</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+    <div fxFlex fxLayout="row" [fxLayoutAlign]="testBool ? 'end center' : 'start center'">
+      <div fxLayout="column" fxLayoutGap="10px" class="chat-message" [ngClass]="{ 'user-message': testBool, 'other-message': !testBool}" >
+        <span fxFlex class="chat-text">This is a test message. What do we do when the message is really long. Does it wrap correctly?</span>
+        <div fxFlex fxLayout="row" fxLayoutGap="10px">
+          <span class="chat-name">Chris McDanielZXcZXCZXv</span>
+          <span class="chat-name chat-time">5/16/22 10:00pm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="light">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="message-input">
+      <ion-textarea autoGrow="true" rows="1" maxlength="500" placeholder="Enter Message" (ionBlur)="scrollToBottom()"></ion-textarea>
+      <ion-button fill="clear" color="primary">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

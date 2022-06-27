@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon style="height: 25px; width: 25px;" name="chevron-back" (click)="goBack()"></ion-icon>
+      <span fxFlex class="header-text">{{ formattedAccountObject | locationName: accounts:false }}</span>
+    </div>
+    <span fxFlex class="content-text">Location Notes: {{ pageAccount.address.notes }}</span>
+  </div>
+  <div class="container" fxLayout="column" fxLayoutGap="16px">
+    <span fxFlex class="section-header-text">Active Checklists</span>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box" *ngFor="let activeCL of activeChecklists">
+      <span fxFlex class="global-info-header">{{ activeCL.title }}</span>
+      <span fxFlex class="global-info-content" *ngIf="activeCL.type === 'Weekly' || activeCL.type === 'Monthly'">Due by: {{ activeCL.expiration.toDate() | date:'shortDate' }}</span>
+      <span fxFlex class="global-info-content">Progress: {{ activeCL.tasks | checklistProgress:false }}%</span>
+      <ion-progress-bar [value]="activeCL.tasks | checklistProgress:true" style="height: 5px;"></ion-progress-bar>
+      <ion-button color="primary" (click)="enterChecklist(activeCL)">View Checklist</ion-button>
+    </div>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box" *ngFor="let userCL of userChecklists">
+      <span fxFlex class="global-info-header">{{ userCL.title }}</span>
+      <span fxFlex class="global-info-content" *ngIf="userCL.type === 'Weekly' || userCL.type === 'Monthly'">Due by: {{ userCL.expiration.toDate() | date:'shortDate' }}</span>
+      <span fxFlex class="global-info-content">Progress: {{ userCL.tasks | checklistProgress:false }}%</span>
+      <ion-progress-bar [value]="userCL.tasks | checklistProgress:true" style="height: 5px;"></ion-progress-bar>
+      <ion-button color="primary" (click)="enterChecklist(userCL)">View Checklist</ion-button>
+    </div>
+    <span class="center-text section-header-text" *ngIf="activeChecklists && activeChecklists.length === 0">No Active Checklists</span>
+    <span class="section-header-text">Available Checklists</span>
+      <div fxFlex fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="start center" class="available-checklist-items" *ngFor="let available of availableChecklists">
+        <span fxFlex class="content-text">{{ available.title }}</span>
+        <ion-button color="primary" (click)="createChecklistFromTemplate(available)">Start</ion-button>
+      </div>
+      <span class="center-text section-header-text" *ngIf="availableChecklists && availableChecklists.length === 0">No Available Checklists</span>
+  </div>
+</ion-content>

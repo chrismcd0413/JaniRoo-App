@@ -1,9 +1,15 @@
+/* eslint-disable max-len */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import * as moment from 'moment-timezone';
 import { Subscription } from 'rxjs';
+import { FirestoreService } from '../shared-services/firestore.service';
+import { SchedulesService } from '../shared-services/Schedules/schedules.service';
 import { TimeService } from '../shared-services/Time/time.service';
+import { UserService } from '../shared-services/user.service';
+import { Timestamp } from '@firebase/firestore';
+import { ChecklistService } from '../shared-services/checklist/checklist.service';
 
 @Component({
   selector: 'app-tab1',
@@ -11,32 +17,10 @@ import { TimeService } from '../shared-services/Time/time.service';
   styleUrls: ['schedules.page.scss']
 })
 export class SchedulesPage implements OnInit, OnDestroy {
-  items = [
-    {
-      location: 'Republic Waste - Longview',
-      locId: '1',
-      start: '4/21/22 6:00pm',
-      end: '4/23/22 4:00pm',
-    },
-    {
-      location: 'Republic Waste - Kilgore',
-      locId: '2',
-      start: '4/21/22 6:00pm',
-      end: '4/23/22 4:00pm',
-    },
-    {
-      location: 'Republic Waste - Tyler',
-      locId: '3',
-      start: '4/21/22 6:00pm',
-      end: '4/23/22 4:00pm',
-    },
-    {
-      location: 'Republic Waste - Jacksonville',
-      locId: '4',
-      start: '4/21/22 6:00pm',
-      end: '4/23/22 4:00pm',
-    },
-  ];
+  coUsers = [];
+  accounts = [];
+  todaysSchedules = [];
+  upcomingSchedules = [];
   activeTimesheet;
   isCheckedIn;
   view = 'today';
@@ -46,7 +30,11 @@ export class SchedulesPage implements OnInit, OnDestroy {
     private timeService: TimeService,
     private router: Router,
     private route: ActivatedRoute,
-    private navController: NavController
+    private navController: NavController,
+    private userService: UserService,
+    private schedulesService: SchedulesService,
+    private fbService: FirestoreService,
+    private checklistService: ChecklistService
   ) {}
 
   ngOnInit(): void {
@@ -56,12 +44,29 @@ export class SchedulesPage implements OnInit, OnDestroy {
       this.subs.push(
         this.timeService.activeTimesheet.subscribe(x => this.activeTimesheet = x)
       );
+      this.subs.push(
+        this.userService.companyUsers.subscribe(users => this.coUsers = users)
+      );
+      this.subs.push(
+        this.userService.companyAccounts.subscribe(accts => {
+          this.accounts = accts;
+        })
+      );
+      this.subs.push(
+        this.schedulesService.fetchTodaysSchedules(this.fbService.generateQueryDateLocal(moment()))
+        .subscribe(schedules => this.todaysSchedules = schedules)
+      );
+      this.subs.push(
+        this.schedulesService.fetchUpcomingSchedules(Timestamp.fromMillis(moment().startOf('day').add(1, 'd').valueOf()))
+        .subscribe(upcoming => this.upcomingSchedules = upcoming)
+      );
   }
 
   ngOnDestroy(): void {
       this.subs.forEach(x => x.unsubscribe());
   }
   ionViewWillEnter() {
+    console.log('Schedules page URL', this.router.url);
     const nowHour = moment().get('hour');
     if (nowHour < 12) {
       this.greetingMessage = 'Good Morning';
@@ -73,14 +78,16 @@ export class SchedulesPage implements OnInit, OnDestroy {
       this.greetingMessage = 'Good Evening';
     }
   }
-  checkInToLocation(id, label) {
-    this.timeService.checkIn(id, label);
+  checkInToLocation(location) {
+    this.timeService.checkIn(location);
   }
   segmentChanged(e) {
     this.view = e.detail.value;
   }
   navigateToLocation(id) {
-    // this.navController.navigateRoot(['work']);
-    this.navController.navigateForward(['work'], {relativeTo: this.route, queryParams: {location: id}});
+    this.checklistService.setWorkLocation({acct: id.acct, loc: id.loc});
+    const relativeRoute = this.router.createUrlTree(['work'], {relativeTo: this.route});
+    this.navController.navigateForward(relativeRoute);
+    // this.navController.navigateForward(['work'], {relativeTo: this.route, queryParams: {account: id.acct, location: id.loc}});
   }
 }

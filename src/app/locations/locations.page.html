@@ -3,7 +3,7 @@
     <span class="welcome-text" fxFlex>My Locations</span>
   </div>
   <div fxFlex class="container" fxLayout="column" fxLayoutGap="16px">
-    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of locations">
+    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of locations" (click)="enterLocation(item.id)">
       <div fxFlex fxLayout="row" fxLayoutGap="10px">
         <span fxFlex class="global-info-header">{{ item.name }}</span>
         <div fxLayout="column" fxLayoutAlign="start end">
@@ -13,6 +13,7 @@
       <span class="info-details">{{ item.address }}</span>
       <div fxFlex class="divider"></div>
       <span>Schedule</span>
+      <app-admin-schedules-view></app-admin-schedules-view>
     </div>
   </div>
 </ion-content>

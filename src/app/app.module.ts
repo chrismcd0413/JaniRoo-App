@@ -15,6 +15,7 @@ import { AuthComponent } from './auth/auth.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActiveCheckInComponent } from './active-check-in/active-check-in.component';
+import { PipesModule } from './pipes/pipes.module';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, ActiveCheckInComponent],
@@ -27,7 +28,8 @@ import { ActiveCheckInComponent } from './active-check-in/active-check-in.compon
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PipesModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

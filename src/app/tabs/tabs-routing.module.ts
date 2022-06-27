@@ -17,11 +17,11 @@ const routes: Routes = [
       },
       {
         path: 'inbox',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },,
+        loadChildren: () => import('../chat/chat.module').then(m => m.ChatPageModule)
+      },
       {
         path: 'more',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        loadChildren: () => import('../more/more.module').then(m => m.MorePageModule)
       },
       {
         path: '',

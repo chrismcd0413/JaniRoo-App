@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+    </div>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
+    <span fxFlex class="title-text">HR Area</span>
+    <span fxFlex class="global-info-content description-text">Check trashcans, behind doors, floors, dust on desks, computers and phones</span>
+    <span fxFlex class="section-title-text">Score</span>
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-button fxFlex [fill]="selectedState === 1 ? 'solid' : 'outline'" color="danger" (click)="changeState(1)">
+        <ion-icon name="thumbs-down-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button fxFlex [fill]="selectedState === 2 ? 'solid' : 'outline'" color="primary" (click)="changeState(2)">
+        <ion-icon name="thumbs-up-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+    <span fxFlex class="section-title-text">Notes</span>
+    <ion-textarea fxFlex class="notes-textarea"></ion-textarea>
+    <ion-button color="primary">Save</ion-button>
+  </div>
+</ion-content>

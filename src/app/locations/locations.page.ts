@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-locations',
@@ -23,6 +25,13 @@ export class LocationsPage {
       address: '123 Main St. Tyler, TX 76132'
     },
   ];
-  constructor() {}
+  constructor(
+    private navController: NavController,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
+  enterLocation(id) {
+
+    this.navController.navigateForward(['location-dashboard'], {relativeTo: this.activatedRoute, queryParams:{location: id}});
+  }
 }

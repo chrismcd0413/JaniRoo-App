@@ -1,0 +1,33 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+    </div>
+    </div>
+    <div fxFlex class="global-container" fxLayout="column" fxLayoutGap="16px">
+      <div fxFlex fxLayout="column" fxLayoutGap="10px">
+        <span class="details-title">{{ task ? task.title : '' }}</span>
+        <span class="details-description">{{ task ? task.description : '' }}</span>
+      </div>
+      <span class="section-header-text">Things to do</span>
+      <form fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box" [formGroup]="subtaskForm">
+        <div fxFlex fxLayout="row" fxLayoutGap="16px" class="row-item" fxLayoutAlign="start center" *ngFor="let item of task.subtasks; let i = index" (click)="subtaskClicked(i)">
+          <ion-checkbox checked="false" [formControlName]="i.toString()"></ion-checkbox>
+          <span class="content-text" fxFlex>{{ item }}</span>
+        </div>
+        <span class="center-text section-header-text" *ngIf="task && task.subtasks.length === 0">No Subtasks</span>
+      </form>
+      <ion-button color="primary" [disabled]="subtaskForm.invalid" *ngIf="!task.completed" (click)="completeTask(true)">
+        <ion-icon slot="start" name="checkmark-done"></ion-icon>
+        Complete
+      </ion-button>
+      <ion-button color="danger" *ngIf="task.completed" (click)="completeTask(false)">
+        <ion-icon slot="start" name="arrow-undo-circle-outline"></ion-icon>
+        Uncomplete
+      </ion-button>
+    </div>
+</ion-content>

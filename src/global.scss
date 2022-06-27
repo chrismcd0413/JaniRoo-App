@@ -28,7 +28,7 @@
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   padding: 10px;
-  background: rgba(128, 128, 128, 0.10);
+  background: rgba(128, 128, 128, 0.1);
 }
 .global-info-header {
   font-family: "SF Pro Display";
@@ -124,4 +124,16 @@
 }
 .divider {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.time-text {
+  font-family: "SF Pro Display";
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.7px;
+}
+.center-text {
+  text-align: center;
 }

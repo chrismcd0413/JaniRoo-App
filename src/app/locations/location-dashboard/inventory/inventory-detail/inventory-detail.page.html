@@ -1,0 +1,20 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+    </div>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
+    <span fxFlex class="title-text">Windex</span>
+    <span fxFlex class="time-text description-text">Last Updated: 4/16/22</span>
+    <span fxFlex class="section-header-text">Update Quantity</span>
+    <form [formGroup]="form" fxFlex fxLayout="column" fxLayoutGap="16px">
+      <ion-input fxFlex type="number" placeholder="Current Quantity: 18" class="quantity-input" formControlName="quantity"></ion-input>
+      <ion-button color="primary" [disabled]="form.invalid">Submit</ion-button>
+    </form>
+  </div>
+</ion-content>

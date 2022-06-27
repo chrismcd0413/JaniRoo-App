@@ -1,0 +1,27 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+      <span fxFlex class="header-text">{{ checklist ? checklist.title : '' }}</span>
+    </div>
+    <div class="global-info-box" fxFlex fxLayout="column" fxLayoutGap="10px">
+      <span class="global-info-header">Progress: {{ !checklist ? [] : checklist.tasks | checklistProgress:false }}%</span>
+      <ion-progress-bar [value]="!checklist ? [] : checklist.tasks | checklistProgress:true" style="height: 5px"></ion-progress-bar>
+    </div>
+  </div>
+  <div class="container" fxLayout="column" fxLayoutGap="16px">
+    <span class="section-header-text">Checklist</span>
+    <div class="global-info-box" fxFlex fxLayout="column" fxLayoutGap="10px" *ngIf="checklist">
+      <div fxFlex fxLayout="row" fxLayoutGap="16px" class="row-item" fxLayoutAlign="start center" *ngFor="let item of checklist.tasks; let i = index" (click)="enterTaskDetails(item, i)">
+        <ion-icon name="ellipse-outline" color="primary" *ngIf="!item.completed" class="checkmark-icon"></ion-icon>
+        <ion-icon name="checkmark-circle" color="primary" *ngIf="item.completed" class="checkmark-icon"></ion-icon>
+        <span class="content-text" fxFlex>{{ item.title }}</span>
+        <ion-icon name="chevron-forward"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

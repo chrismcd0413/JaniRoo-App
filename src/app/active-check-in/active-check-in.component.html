@@ -1,8 +1,8 @@
 <div fxLayout="row" fxFlex class="container">
   <div class="content" fxLayout="row" fxFlex fxLayoutGap="16px">
     <div fxLayout="column" fxLayoutGap="8px" fxFlex>
-      <span class="location-text">{{ activeTimesheet.locationLabel }}</span>
-      <span class="check-in-text">Checked In Since: {{ activeTimesheet.start }}</span>
+      <span class="location-text">{{ activeTimesheet.location | locationName:accounts:false }}</span>
+      <span class="check-in-text">Checked In Since: {{ activeTimesheet.clock_in_time.toDate() | date:'short' }}</span>
     </div>
     <ion-fab-button color="danger" shape="round" class="clock-out-button" (click)="checkOutOfLocation()">
       <ion-icon name="stop"></ion-icon>

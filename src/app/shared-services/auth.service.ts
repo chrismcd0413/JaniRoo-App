@@ -31,14 +31,18 @@ export class AuthService {
   }
   logout() {
     this.auth.signOut();
+    // this.firstRun = true;
   }
   initAuthListener() {
     this.subs.push(
       this.auth.authState.subscribe((user) => {
         if (user) {
+          console.log('AUTH STATE YES');
           this.isAuthenticated = true;
           this.setUserData(user);
         } else {
+          console.log('AUTH STATE NO');
+
           this.user.clearUser();
           this.router.navigate(['/login']);
         }
@@ -48,6 +52,9 @@ export class AuthService {
   setUserData(user) {
     this.fb.fetchUserProfile(user.uid).subscribe((profile) => {
       this.user.setUser(profile);
+      console.log('PROFILE CHANGED: ', JSON.stringify(profile));
+      this.fb.fetchLocations().subscribe((accounts) => this.user.setAccounts(accounts));
+      this.fb.fetchCompanyUsers().subscribe(users => this.user.setUsers(users));
       if (this.firstRun) {
         this.router.navigate(['/']);
         this.firstRun = false;
@@ -57,4 +64,5 @@ export class AuthService {
   isAuth() {
     return this.isAuthenticated;
   }
+
 }

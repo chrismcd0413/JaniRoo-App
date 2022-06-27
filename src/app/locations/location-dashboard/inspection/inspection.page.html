@@ -1,0 +1,40 @@
+<ion-content [fullscreen]="true">
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="header-area">
+    <div fxFlex fxLayout="row" fxLayoutGap="10px">
+      <ion-icon
+        style="height: 25px; width: 25px"
+        name="chevron-back"
+        (click)="goBack()"
+      ></ion-icon>
+      <span fxFlex class="header-text">New Inspection</span>
+    </div>
+  </div>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box">
+      <span fxFlex class="global-info-header">Republic Waste - Longview</span>
+      <span fxFlex class="global-info-content">Progress: 25%</span>
+      <ion-progress-bar value="0.25" style="height: 5px"></ion-progress-bar>
+      <span fxFlex class="global-info-content">Score: 75%</span>
+      <ion-progress-bar value="0.25" style="height: 5px"></ion-progress-bar>
+      <ion-button color="primary">Submit Inspection</ion-button>
+    </div>
+    <span class="section-header-text">Checklist</span>
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box">
+      <div fxFlex fxLayout="row" fxLayoutGap="16px" class="inspection-item" (click)="enterInspectionTaskDetail()">
+        <ion-icon name="thumbs-up-outline"></ion-icon>
+        <span fxFlex class="global-info-content">Check HR Area</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="16px" class="inspection-item" (click)="enterInspectionTaskDetail()">
+        <ion-icon name="ellipse-outline"></ion-icon>
+        <span fxFlex class="global-info-content">Check HR Area</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+      <div fxFlex fxLayout="row" fxLayoutGap="16px" class="inspection-item" (click)="enterInspectionTaskDetail()">
+        <ion-icon name="thumbs-down-outline"></ion-icon>
+        <span fxFlex class="global-info-content">Check HR Area</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

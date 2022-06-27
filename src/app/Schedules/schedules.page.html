@@ -1,6 +1,6 @@
 <ion-content [fullscreen]="true">
   <div fxFlex class="header-area" fxLayout="column" fxLayoutGap="16px">
-    <span class="welcome-text" fxFlex>{{ greetingMessage}}, Chris</span>
+    <span class="welcome-text" fxFlex>{{ greetingMessage}}</span>
     <ion-segment value="today" (ionChange)="segmentChanged($event)">
       <ion-segment-button value="today">
         <ion-label>Today</ion-label>
@@ -11,19 +11,21 @@
     </ion-segment>
   </div>
   <div fxFlex class="container" fxLayout="column" fxLayoutGap="16px" *ngIf="view === 'today'">
-    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of items">
-      <span class="global-info-header">{{ item.location }}</span>
-      <span class="info-details">After: {{ item.start }}</span>
-      <span class="info-details">Before: {{ item.end }}</span>
-      <ion-button color="success" *ngIf="isCheckedIn && activeTimesheet.locId === item.locId" (click)="navigateToLocation(item.locId)">Start Working</ion-button>
-      <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkInToLocation(item.locId, item.location)">Clock In</ion-button>
+    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of todaysSchedules">
+      <span class="global-info-header">{{ item.location | locationName: accounts:false}}</span>
+      <span class="info-details">{{ item.type === 'trad' ? 'Start' : 'After' }}: {{ item.start_date.toDate() | date:'short' }}</span>
+      <span class="info-details">{{ item.type === 'trad' ? 'End' : 'Before' }}: {{ item.end_date.toDate() | date:'short' }}</span>
+      <ion-button color="success" *ngIf="isCheckedIn && activeTimesheet.location.acct === item.location.acct && activeTimesheet.location.loc === item.location.loc" (click)="navigateToLocation(item.location)">Start Working</ion-button>
+      <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkInToLocation(item.location)">Clock In</ion-button>
     </div>
+    <span class="section-header-text center-text" *ngIf="todaysSchedules.length === 0">No scheduled shifts today</span>
   </div>
   <div fxFlex class="container" fxLayout="column" fxLayoutGap="16px" *ngIf="view === 'upcoming'">
-    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of items">
-      <span class="global-info-header">{{ item.location }}</span>
-      <span class="info-details">After: {{ item.start }}</span>
-      <span class="info-details">Before: {{ item.end }}</span>
+    <div class="global-info-box" fxLayout="column" fxLayoutGap="8px" *ngFor="let item of upcomingSchedules">
+      <span class="global-info-header">{{ item.location | locationName: accounts:false}}</span>
+      <span class="info-details">{{ item.type === 'trad' ? 'Start' : 'After' }}: {{ item.start_date.toDate() | date:'short' }}</span>
+      <span class="info-details">{{ item.type === 'trad' ? 'End' : 'Before' }}: {{ item.end_date.toDate() | date:'short' }}</span>
     </div>
+    <span class="section-header-text center-text" *ngIf="upcomingSchedules.length === 0">No upcoming shifts</span>
   </div>
 </ion-content>

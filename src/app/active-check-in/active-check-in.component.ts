@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TimeService } from '../shared-services/Time/time.service';
+import { UserService } from '../shared-services/user.service';
 
 @Component({
   selector: 'app-active-check-in',
@@ -9,14 +10,19 @@ import { TimeService } from '../shared-services/Time/time.service';
 })
 export class ActiveCheckInComponent implements OnInit, OnDestroy {
   activeTimesheet;
+  accounts;
   private subs: Subscription[] = [];
   constructor(
-    private timeService: TimeService
+    private timeService: TimeService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.subs.push(
       this.timeService.activeTimesheet.subscribe(timesheet => this.activeTimesheet = timesheet)
+    );
+    this.subs.push(
+      this.userService.companyAccounts.subscribe(x => this.accounts = x)
     );
   }
   ngOnDestroy() {
