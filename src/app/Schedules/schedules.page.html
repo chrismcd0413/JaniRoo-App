@@ -16,7 +16,7 @@
       <span class="info-details">{{ item.type === 'trad' ? 'Start' : 'After' }}: {{ item.start_date.toDate() | date:'short' }}</span>
       <span class="info-details">{{ item.type === 'trad' ? 'End' : 'Before' }}: {{ item.end_date.toDate() | date:'short' }}</span>
       <ion-button color="success" *ngIf="isCheckedIn && activeTimesheet.location.acct === item.location.acct && activeTimesheet.location.loc === item.location.loc" (click)="navigateToLocation(item.location)">Start Working</ion-button>
-      <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkInToLocation(item.location)">Clock In</ion-button>
+      <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkInToLocation(item.location, item.query)">Clock In</ion-button>
     </div>
     <span class="section-header-text center-text" *ngIf="todaysSchedules.length === 0">No scheduled shifts today</span>
   </div>

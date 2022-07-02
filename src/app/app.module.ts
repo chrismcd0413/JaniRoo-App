@@ -30,7 +30,7 @@ import { PipesModule } from './pipes/pipes.module';
     ReactiveFormsModule,
     FlexLayoutModule,
     PipesModule
-  ],
+    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

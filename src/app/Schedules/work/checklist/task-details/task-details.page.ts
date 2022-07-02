@@ -2,7 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ChecklistService } from 'src/app/shared-services/checklist/checklist.service';
 
@@ -18,13 +18,14 @@ export class TaskDetailsPage implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private navController: NavController,
-    private checklistService: ChecklistService
+    private checklistService: ChecklistService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
     this.task = this.checklistService.activeTask;
     console.log('Active Task: ', JSON.stringify(this.task));
-    this.task.subtasks.forEach((sub, i) => this.subtaskForm.addControl(i.toString(), new FormControl(false, {validators: [Validators.requiredTrue]})));
+    this.task.subtasks.forEach((sub, i) => this.subtaskForm.addControl(i.toString(), new FormControl(this.task.completed ? true : false, {validators: [Validators.requiredTrue]})));
   }
   ngOnDestroy(): void {
       this.subs.forEach(x => x.unsubscribe());
@@ -37,7 +38,21 @@ export class TaskDetailsPage implements OnInit, OnDestroy {
     const control = this.subtaskForm.controls[controlString];
     control.setValue(!control.value);
   }
-  completeTask(status) {
-    this.checklistService.changeTask(status).then(() => this.goBack());
+  async completeTask(status) {
+    const loadingIndicator = await this.loadingController.create({
+      message: 'Saving Task'
+    });
+    loadingIndicator.present();
+    this.checklistService.changeTask(status).then(() => {
+      if (status) {
+        loadingIndicator.dismiss();
+        this.goBack();
+      } else {
+        loadingIndicator.dismiss();
+        this.task.subtasks.forEach((sub, i) => {
+          this.subtaskForm.get(i.toString()).setValue(false);
+        });
+      }
+    });
   }
 }

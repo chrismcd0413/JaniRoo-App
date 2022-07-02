@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-delimiter-style */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
@@ -21,7 +22,8 @@ export class ChecklistService {
   private loadedActiveChecklist = false;
   constructor(private fb: AngularFirestore, private userService: UserService
     , private alertController: AlertController, private firebaseService: FirestoreService,
-    private loadingController: LoadingController) {}
+    private loadingController: LoadingController) {
+    }
 
   get activeChecklistObservable() {
     return this._activeChecklistSubject.asObservable();
@@ -35,26 +37,27 @@ export class ChecklistService {
   get activeTask() {
     return this._activeTask;
   }
-  getLocationActiveChecklists(acct, loc) {
+
+  getLocationActiveChecklists(acct, loc, completed) {
     return this.fb
       .collection('Active Checklists', (ref) =>
         ref
           .where('companyId', '==', this.userService.details.companyId)
           .where('location.acct', '==', acct)
           .where('location.loc', '==', loc)
-          .where('complete', '==', false)
+          .where('complete', '==', completed)
           .where('type', '!=', 'Daily')
       )
       .valueChanges({ idField: 'id' });
   }
-  getActiveDailyChecklists(acct, loc) {
+  getActiveDailyChecklists(acct, loc, completed) {
     return this.fb
       .collection('Active Checklists', (ref) =>
         ref
           .where('companyId', '==', this.userService.details.companyId)
           .where('location.acct', '==', acct)
           .where('location.loc', '==', loc)
-          .where('complete', '==', false)
+          .where('complete', '==', completed)
           .where('type', '==', 'Daily')
           .where('user', '==', this.userService.details.id)
       )
@@ -72,6 +75,19 @@ export class ChecklistService {
       )
       .valueChanges({ idField: 'id' });
   }
+  getCompleteUserChecklists(acct, loc, query) {
+    return this.fb
+      .collection('Active Checklists', (ref) =>
+        ref
+          .where('companyId', '==', this.userService.details.companyId)
+          .where('location.acct', '==', acct)
+          .where('location.loc', '==', loc)
+          .where('type', '==', 'Daily')
+          .where('query', 'in', query)
+          .where('complete', '==', true)
+      )
+      .valueChanges({ idField: 'id' });
+  }
 
   setActiveChecklist(checklist) {
     this._activeChecklist = checklist;
@@ -81,10 +97,11 @@ export class ChecklistService {
     }
     this.fb.collection('Active Checklists').doc(checklist.id).valueChanges({ idField: 'id'})
       .subscribe(CL => {
-        console.log('FOUND CHECKLIST :', JSON.stringify(CL));
+        console.log('FOUND CHECKLIST: ', JSON.stringify(CL));
         this._activeChecklistSubject.next(CL);
         this._activeChecklist = CL;
       });
+
   }
   unsubscribeFromChecklistUpdates() {
     this.activeChecklistSub.unsubscribe();

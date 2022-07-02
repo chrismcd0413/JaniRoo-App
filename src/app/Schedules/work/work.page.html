@@ -23,6 +23,19 @@
       <ion-button color="primary" (click)="enterChecklist(userCL)">View Checklist</ion-button>
     </div>
     <span class="center-text section-header-text" *ngIf="activeChecklists && activeChecklists.length === 0">No Active Checklists</span>
+
+    <span fxFlex class="section-header-text">Complete Checklists</span>
+
+    <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box" *ngFor="let activeCL of completeUserChecklists">
+      <span fxFlex class="global-info-header">{{ activeCL.title }}</span>
+      <span fxFlex class="global-info-content" *ngIf="activeCL.type === 'Weekly' || activeCL.type === 'Monthly'">Due by: {{ activeCL.expiration.toDate() | date:'shortDate' }}</span>
+      <span fxFlex class="global-info-content">Progress: {{ activeCL.tasks | checklistProgress:false }}%</span>
+      <ion-progress-bar [value]="activeCL.tasks | checklistProgress:true" style="height: 5px;"></ion-progress-bar>
+    </div>
+
+    <span class="center-text section-header-text" *ngIf="completeUserChecklists && completeUserChecklists.length === 0">No Complete Checklists</span>
+
+
     <span class="section-header-text">Available Checklists</span>
       <div fxFlex fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="start center" class="available-checklist-items" *ngFor="let available of availableChecklists">
         <span fxFlex class="content-text">{{ available.title }}</span>

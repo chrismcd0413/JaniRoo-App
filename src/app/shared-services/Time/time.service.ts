@@ -36,6 +36,9 @@ export class TimeService {
   get activeTimesheet() {
     return this._activeTimesheet.asObservable();
   }
+  get activeTimesheetSnapshot() {
+    return this._activeTimesheet.value;
+  }
   initTimeService() {
     console.log('SET UP TIME SERVICE SUBS');
     this.userService.userObservable.subscribe((userObject) => {
@@ -56,7 +59,7 @@ export class TimeService {
 
     this.userService.companyAccounts.subscribe((x) => (this.accounts = x));
   }
-  async checkIn(account) {
+  async checkIn(account, query?) {
     // PRESENT LOADING INDICATOR
 
     const loadingIndicator = this.createLoadingIndicator('Checking you in...');
@@ -93,17 +96,18 @@ export class TimeService {
         polyToCheck
       );
       if (isInPoly) {
-        this.createTimesheet(account.acct, account.loc);
+        this.createTimesheet(account.acct, account.loc, query);
       } else {
         this.createAlert('Error', 'Not at facility');
       }
+    } else {
+      this.createTimesheet(account.acct, account.loc, query);
     }
 
     // DISMISS LOADING INDICATOR
 
     (await loadingIndicator).dismiss();
 
-    // NAVIGATE TO WORK PAGE AUTOMAGICALLY
   }
   async checkOut() {
     // CAN DELETE LATER, SIMULATING LOADING TIME
@@ -138,14 +142,19 @@ export class TimeService {
     // NAVIGATE BACK TO SCHEDULES
   }
 
-  createTimesheet(account, location) {
-    this.fb.collection('Timesheets').add({
+  createTimesheet(account, location, query?) {
+    const newTimesheet = {
       clock_in_time: Timestamp.fromDate(new Date()),
       companyId: this.userService.details.companyId,
       location: {acct: account, loc: location},
       user: this.userService.details.id,
-      query_start: this.firestoreService.generateQueryDateLocal(moment())
-    })
+      query_start: this.firestoreService.generateQueryDateLocal(moment()),
+      scheduleQuery: this.firestoreService.generateQueryDateLocal(moment())
+    };
+    if (query) {
+      newTimesheet.scheduleQuery = query;
+    }
+    this.fb.collection('Timesheets').add(newTimesheet)
     .then(timesheet => {
       this.fb.collection('Users').doc(this.userService.details.id).update({onDuty: true, activeTimesheet: timesheet.id});
     });

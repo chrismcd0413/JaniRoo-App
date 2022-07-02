@@ -78,8 +78,8 @@ export class SchedulesPage implements OnInit, OnDestroy {
       this.greetingMessage = 'Good Evening';
     }
   }
-  checkInToLocation(location) {
-    this.timeService.checkIn(location);
+  checkInToLocation(location, query) {
+    this.timeService.checkIn(location, query);
   }
   segmentChanged(e) {
     this.view = e.detail.value;
