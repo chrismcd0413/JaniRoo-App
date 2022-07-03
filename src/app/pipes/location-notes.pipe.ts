@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'locationName'
+  name: 'locationNotes'
 })
-export class LocationNamePipe implements PipeTransform {
+export class LocationNotesPipe implements PipeTransform {
 
   transform(value: any, accounts: any[], isString: boolean): unknown {
     if (!accounts){
@@ -15,10 +15,14 @@ export class LocationNamePipe implements PipeTransform {
     } else {
       location = value;
     }
-    // console.log('VALUE: ', value);
     const acct = accounts.find(x => x.id === location.acct);
     const loc = acct.locations.find(x => x.id === location.loc);
-    const formattedString = acct.name + ' - ' + loc.name;
+    let formattedString;
+    if (loc.address.notes && loc.address.notes !== '') {
+      formattedString = loc.address.notes;
+    } else {
+      formattedString = 'None';
+    }
     return formattedString;
   }
 }

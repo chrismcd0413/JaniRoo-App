@@ -9,6 +9,7 @@ import { LocationDashboardPageRoutingModule } from './location-dashboard-routing
 import { LocationDashboardPage } from './location-dashboard.page';
 import { AdminSchedulesViewModule } from 'src/app/shared-components/admin-schedules-view/admin-schedules-view.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     IonicModule,
     LocationDashboardPageRoutingModule,
     AdminSchedulesViewModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PipesModule
   ],
   declarations: [LocationDashboardPage]
 })

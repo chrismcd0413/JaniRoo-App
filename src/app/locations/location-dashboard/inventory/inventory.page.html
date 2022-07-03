@@ -15,23 +15,14 @@
     <!-- Supplies List Box -->
 
     <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box">
-      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="supply-item" (click)="enterInventoryDetails()">
+      <span class="center-text section-header-text" *ngIf="inventoryItems.length === 0">No Supplies</span>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="supply-item" (click)="enterInventoryDetails(item)" *ngFor="let item of inventoryItems">
         <div fxFlex fxLayout="column" fxLayoutGap="10px">
           <div fxFlex fxLayout="row" fxLayoutGap="16px">
-            <span class="section-header-text">18</span>
-            <span class="section-header-text">Windex</span>
+            <span class="section-header-text">{{ item.current }}</span>
+            <span class="section-header-text">{{ item.name }}</span>
           </div>
-          <span class="time-text">Last Update: 4/16/22</span>
-        </div>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </div>
-      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="supply-item" (click)="enterInventoryDetails()">
-        <div fxFlex fxLayout="column" fxLayoutGap="10px">
-          <div fxFlex fxLayout="row" fxLayoutGap="16px">
-            <span class="section-header-text">18</span>
-            <span class="section-header-text">Trash Bags</span>
-          </div>
-          <span class="time-text">Last Update: 4/16/22</span>
+          <span class="time-text">Last Update: {{ item.last_update.toDate() | date:'M/d/yy' }}</span>
         </div>
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </div>
@@ -41,23 +32,14 @@
     <!-- Equipment List Box -->
 
     <div fxFlex fxLayout="column" fxLayoutGap="10px" class="global-info-box">
-      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="equipment-item" (click)="enterInventoryDetails()">
+      <span class="center-text section-header-text" *ngIf="equipmentItems.length === 0">No Equipment</span>
+      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="supply-item" (click)="enterInventoryDetails(item)" *ngFor="let item of equipmentItems">
         <div fxFlex fxLayout="column" fxLayoutGap="10px">
           <div fxFlex fxLayout="row" fxLayoutGap="16px">
-            <span class="section-header-text">3</span>
-            <span class="section-header-text">Carts</span>
+            <span class="section-header-text">{{ item.current }}</span>
+            <span class="section-header-text">{{ item.name }}</span>
           </div>
-          <span class="time-text">Last Update: 4/16/22</span>
-        </div>
-        <ion-icon name="chevron-forward-outline"></ion-icon>
-      </div>
-      <div fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" class="equipment-item" (click)="enterInventoryDetails()">
-        <div fxFlex fxLayout="column" fxLayoutGap="10px">
-          <div fxFlex fxLayout="row" fxLayoutGap="16px">
-            <span class="section-header-text">5</span>
-            <span class="section-header-text">Mop Buckets</span>
-          </div>
-          <span class="time-text">Last Update: 4/16/22</span>
+          <span class="time-text">Last Update: {{ item.last_update.toDate() | date:'M/d/yy' }}</span>
         </div>
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </div>

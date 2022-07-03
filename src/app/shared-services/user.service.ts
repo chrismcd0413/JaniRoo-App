@@ -28,7 +28,8 @@ export class UserService {
   }
   setUser(user) {
     this._user.next(user);
-    console.log('Set the user');
+    const activePermissions = user.locations.filter(x => x.active === true);
+    this._permissions.next(activePermissions);
   }
   clearUser() {
     this._user.next(null);

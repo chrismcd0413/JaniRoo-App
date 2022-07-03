@@ -1,37 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { LocationDashboardService } from '../shared-services/Location Dashboard/location-dashboard.service';
+import { UserService } from '../shared-services/user.service';
 
 @Component({
   selector: 'app-locations',
   templateUrl: 'locations.page.html',
-  styleUrls: ['locations.page.scss']
+  styleUrls: ['locations.page.scss'],
 })
-export class LocationsPage {
-  locations = [
-    {
-      name: 'Republic Waste - Longview',
-      id: '1',
-      address: '123 Main St. Longview, TX 76132'
-    },
-    {
-      name: 'Republic Waste - Kilgore',
-      id: '2',
-      address: '123 Main St. Kilgore, TX 76132'
-    },
-    {
-      name: 'Republic Waste - Tyler',
-      id: '3',
-      address: '123 Main St. Tyler, TX 76132'
-    },
-  ];
+export class LocationsPage implements OnInit, OnDestroy {
+  userLocations;
+  accounts;
+  private subs: Subscription[] = [];
   constructor(
     private navController: NavController,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private locationService: LocationDashboardService
   ) {}
 
+  ngOnInit(): void {
+    this.subs.push(
+      this.userService.permissions.subscribe(userPermissions => this.userLocations = userPermissions)
+    );
+    this.subs.push(
+      this.userService.companyAccounts.subscribe(_accounts => this.accounts = _accounts)
+    );
+  }
+  ngOnDestroy(): void {
+    this.subs.forEach(x => x.unsubscribe());
+  }
   enterLocation(id) {
 
-    this.navController.navigateForward(['location-dashboard'], {relativeTo: this.activatedRoute, queryParams:{location: id}});
+    this.locationService.setActiveLocation(id);
+
+    this.navController.navigateForward(['location-dashboard'], {
+      relativeTo: this.activatedRoute
+    });
   }
 }

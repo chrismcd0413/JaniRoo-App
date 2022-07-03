@@ -8,6 +8,7 @@ import { LocationsPage } from './locations.page';
 import { LocationsRoutingModule } from './locations-routing.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AdminSchedulesViewModule } from '../shared-components/admin-schedules-view/admin-schedules-view.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { AdminSchedulesViewModule } from '../shared-components/admin-schedules-v
     LocationsRoutingModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    AdminSchedulesViewModule
+    AdminSchedulesViewModule,
+    PipesModule
   ],
   declarations: [LocationsPage]
 })

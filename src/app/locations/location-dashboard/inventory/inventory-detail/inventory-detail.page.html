@@ -9,12 +9,12 @@
     </div>
   </div>
   <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
-    <span fxFlex class="title-text">Windex</span>
-    <span fxFlex class="time-text description-text">Last Updated: 4/16/22</span>
+    <span fxFlex class="title-text">{{ item.name }}</span>
+    <span fxFlex class="time-text description-text">Last Updated: {{ item.last_update.toDate() | date: 'M/d/yy'}}</span>
     <span fxFlex class="section-header-text">Update Quantity</span>
     <form [formGroup]="form" fxFlex fxLayout="column" fxLayoutGap="16px">
-      <ion-input fxFlex type="number" placeholder="Current Quantity: 18" class="quantity-input" formControlName="quantity"></ion-input>
-      <ion-button color="primary" [disabled]="form.invalid">Submit</ion-button>
+      <ion-input fxFlex type="number" [placeholder]="'Current Quantity: ' + item.current" class="quantity-input" formControlName="quantity"></ion-input>
+      <ion-button color="primary" [disabled]="form.invalid" (click)="updateInventoryQuantity()">Submit</ion-button>
     </form>
   </div>
 </ion-content>
