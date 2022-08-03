@@ -13,6 +13,7 @@ export class AuthService {
   private isAuthenticated = false;
   private subs: Subscription[] = [];
   private firstRun = true;
+  private fetchUserProfileSub: Subscription;
   constructor(
     private auth: AngularFireAuth,
     private user: UserService,
@@ -21,6 +22,7 @@ export class AuthService {
     private fb: FirestoreService
   ) { }
   login(email: string, password: string) {
+    console.log('FR STATUS: ', this.firstRun);
     this.auth.signInWithEmailAndPassword(email, password)
     .catch((error) => {
       this.alertController.create({
@@ -31,7 +33,8 @@ export class AuthService {
   }
   logout() {
     this.auth.signOut();
-    // this.firstRun = true;
+    this.firstRun = true;
+    this.fetchUserProfileSub.unsubscribe();
   }
   initAuthListener() {
     this.subs.push(
@@ -41,8 +44,8 @@ export class AuthService {
           this.isAuthenticated = true;
           this.setUserData(user);
         } else {
-          console.log('AUTH STATE NO');
-
+          console.log('AUTH STATE NO FRSTATUS: ', this.firstRun);
+          this.isAuthenticated = false;
           this.user.clearUser();
           this.router.navigate(['/login']);
         }
@@ -50,13 +53,14 @@ export class AuthService {
     );
   }
   setUserData(user) {
-    this.fb.fetchUserProfile(user.uid).subscribe((profile) => {
+    this.fetchUserProfileSub = this.fb.fetchUserProfile(user.uid).subscribe((profile) => {
       this.user.setUser(profile);
       console.log('PROFILE CHANGED: ', JSON.stringify(profile));
       this.fb.fetchLocations().subscribe((accounts) => this.user.setAccounts(accounts));
       this.fb.fetchCompanyUsers().subscribe(users => this.user.setUsers(users));
       if (this.firstRun) {
-        this.router.navigate(['/']);
+        console.log('NAVIGATING TO MAIN SCREEN');
+        this.router.navigate(['/'], {replaceUrl: true});
         this.firstRun = false;
       }
     });

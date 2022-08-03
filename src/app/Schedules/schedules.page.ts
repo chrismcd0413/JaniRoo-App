@@ -54,7 +54,11 @@ export class SchedulesPage implements OnInit, OnDestroy {
       );
       this.subs.push(
         this.schedulesService.fetchTodaysSchedules(this.fbService.generateQueryDateLocal(moment()))
-        .subscribe(schedules => this.todaysSchedules = schedules)
+        .subscribe(schedules => {
+          if (schedules !== null) {
+            this.todaysSchedules = schedules;
+          }
+        })
       );
       this.subs.push(
         this.schedulesService.fetchUpcomingSchedules(Timestamp.fromMillis(moment().startOf('day').add(1, 'd').valueOf()))

@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ActiveCheckInComponent } from './active-check-in/active-check-in.component';
 import { PipesModule } from './pipes/pipes.module';
+import { AngularFireAuthGuardModule } from '@angular/fire/compat/auth-guard';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, ActiveCheckInComponent],
@@ -29,7 +30,8 @@ import { PipesModule } from './pipes/pipes.module';
     AngularFirestoreModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    PipesModule
+    PipesModule,
+    AngularFireAuthGuardModule
     ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -19,7 +19,9 @@ export class AppComponent implements OnDestroy{
     private router: Router,
     private timeService: TimeService
   ) {
+    // Setup Auth Listener
     this.auth.initAuthListener();
+
     this.subs.push(
       this.router.events
       .pipe(
