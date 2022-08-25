@@ -17,6 +17,7 @@ export class LocationDashboardPage implements OnInit, OnDestroy {
   accounts;
   activeTimesheet;
   permission;
+  isCheckedIn = false;
   private permissionSub: Subscription;
   private subs: Subscription[] = [];
   constructor(
@@ -45,6 +46,9 @@ export class LocationDashboardPage implements OnInit, OnDestroy {
     );
     this.subs.push(
       this.timeService.activeTimesheet.subscribe(timesheet => this.activeTimesheet = timesheet)
+    );
+    this.subs.push(
+      this.timeService.checkInStatus.subscribe(status => this.isCheckedIn = status)
     );
   }
   ngOnDestroy(): void {

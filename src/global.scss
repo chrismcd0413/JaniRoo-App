@@ -24,6 +24,10 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+ion-app {
+  margin-top: env(safe-area-inset-top);
+  // margin-bottom: env(safe-area-inset-bottom);
+}
 .global-info-box {
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
@@ -31,7 +35,7 @@
   background: rgba(128, 128, 128, 0.1);
 }
 .global-info-header {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -39,7 +43,7 @@
   letter-spacing: 0.363636px;
 }
 .global-info-content {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
@@ -51,7 +55,7 @@
   border-radius: 4px;
 }
 .header-text {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
@@ -60,7 +64,7 @@
   text-transform: capitalize;
 }
 .content-text {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -68,7 +72,7 @@
   letter-spacing: 0.7px;
 }
 .section-header-text {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
@@ -98,7 +102,7 @@
   padding-top: 8px;
 }
 .details-title {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 500;
   font-size: 26px;
@@ -106,7 +110,7 @@
   text-align: center;
 }
 .details-description {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -115,7 +119,7 @@
   letter-spacing: 0.7px;
 }
 .welcome-text {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
@@ -127,7 +131,7 @@
 }
 
 .time-text {
-  font-family: "SF Pro Display";
+  // font-family: "SF Pro Display";
   font-style: italic;
   font-weight: 300;
   font-size: 14px;

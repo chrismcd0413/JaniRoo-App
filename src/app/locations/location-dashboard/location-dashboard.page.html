@@ -14,7 +14,7 @@
     <span fxFlex class="content-text">Location Notes: {{ pageAccount | locationNotes:accounts:false}}</span>
   </div>
   <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
-    <ion-button color="primary" *ngIf="!activeTimesheet" (click)="checkin()">Check In</ion-button>
+    <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkin()">Check In</ion-button>
     <!-- <span class="section-header-text">Today's Schedule</span>
     <app-admin-schedules-view></app-admin-schedules-view>
     <span class="section-header-text">Today's Checklists</span>
@@ -39,7 +39,7 @@
     </div>
     <span *ngIf="permission.inventory" class="section-header-text">Inventory</span>
     <div *ngIf="permission.inventory" fxFlex fxLayout="row" fxLayoutGap="10px" class="global-info-box" (click)="enterInventory()">
-      <span fxFlex class="section-header-text">View/Edit Inventory</span>
+      <span fxFlex class="section-header-text">View / Edit Inventory</span>
       <ion-icon name="chevron-forward-outline"></ion-icon>
     </div>
   </div>

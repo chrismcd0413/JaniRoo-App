@@ -62,10 +62,10 @@ export class TimeService {
   async checkIn(account, query?) {
     // PRESENT LOADING INDICATOR
 
-    const loadingIndicator = this.createLoadingIndicator('Checking you in...');
-    (await loadingIndicator).present();
-
-    // CHECK IF GEO IS ENABLED ON LOCATION
+    this.createLoadingIndicator('Checking you in...')
+    .then(loadingIndicator => {
+      loadingIndicator.present();
+       // CHECK IF GEO IS ENABLED ON LOCATION
     // IF YES, CHECK IF USER IS IN RADIUS
     // ENABLE BACKGROUND TRACKING IF USER IS IN RADIUS
     // CREATE TIMESHEET
@@ -73,41 +73,64 @@ export class TimeService {
     const acct = this.accounts.find((x) => x.id === account.acct);
     const location = acct.locations.find((x) => x.id === account.loc);
     console.log('Found Location: ', JSON.stringify(location));
+    console.log('Geo Enabled: ', location.geo_enabled);
     if (location.geo_enabled) {
+      console.log('Starting location check');
       const locationGeo = [
         location.address.geo.lng,
         location.address.geo.lat
       ];
       const radius = location.geo_radius / 1000;
 
-      console.log('about to check circle');
+      console.log('about to check circle ');
       console.log('Radius (km): ', radius);
       const polyToCheck = circle(locationGeo, radius);
       console.log('Location Geo: ', locationGeo);
-      const coordinates = await Geolocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        maximumAge: 10000,
+      Geolocation.checkPermissions().then(permissions => {
+        console.log('Permissions: ', JSON.stringify(permissions));
+        if (permissions.location !== 'granted') {
+          loadingIndicator.dismiss();
+          Geolocation.requestPermissions();
+        }
       });
-      console.log('Current Location:', JSON.stringify(coordinates.coords));
-      console.log('about to check circle');
-      console.log('Made it past circle');
-      const isInPoly = booleanPointInPolygon(
-        [coordinates.coords.longitude, coordinates.coords.latitude],
-        polyToCheck
-      );
-      if (isInPoly) {
-        this.createTimesheet(account.acct, account.loc, query);
-      } else {
-        this.createAlert('Error', 'Not at facility');
-      }
+      Geolocation.getCurrentPosition({
+        enableHighAccuracy: false,
+        maximumAge: 10000,
+        timeout: 5000
+      })
+      .then(coordinates => {
+        console.log('Current Location:', JSON.stringify(coordinates.coords));
+        console.log('about to check circle 2');
+        console.log('Made it past circle ');
+        const isInPoly = booleanPointInPolygon(
+          [coordinates.coords.longitude, coordinates.coords.latitude],
+          polyToCheck
+        );
+        console.log('Poly result: ', isInPoly);
+        if (isInPoly) {
+          this.createTimesheet(account.acct, account.loc, query);
+          loadingIndicator.dismiss();
+        } else {
+          loadingIndicator.dismiss();
+          this.createAlert('Error', 'Not at facility');
+        }
+      }, (err) => {
+        console.log('LOCATION ERROR: ', JSON.stringify(err));
+      })
+      .catch((error) => {
+        console.log('Error getting location ');
+        loadingIndicator.dismiss();
+        this.createAlert('Error', 'Unable to get location. Please check settings and try again');
+      });
     } else {
       this.createTimesheet(account.acct, account.loc, query);
+      loadingIndicator.dismiss();
+
     }
 
     // DISMISS LOADING INDICATOR
-
-    (await loadingIndicator).dismiss();
-
+    // loadingIndicator.dismiss();
+    });
   }
   async checkOut() {
     // CAN DELETE LATER, SIMULATING LOADING TIME
