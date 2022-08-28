@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div fxFlex fxLayout="column" fxLayoutGap="16px" class="content-area">
+    <span class="header-text center-text">{{ user.name }}</span>
+    <form [formGroup]="form" fxFlex fxLayout="column" fxLayoutGap="24px">
+      <span class="section-header-text">Details</span>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input fxFlex type="email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Phone Number</ion-label>
+        <ion-input fxFlex type="tel" formControlName="phone"></ion-input>
+      </ion-item>
+      <span class="section-header-text">Mailing Address</span>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Address 1</ion-label>
+        <ion-input fxFlex type="text" formControlName="address1"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Address 2</ion-label>
+        <ion-input fxFlex type="text" formControlName="address2"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="stacked">City</ion-label>
+        <ion-input fxFlex type="text" formControlName="city"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="stacked">State (2 Letter Abbv.)</ion-label>
+        <ion-input fxFlex type="text" formControlName="state"></ion-input>
+      </ion-item>
+      <ion-item class="input-item">
+        <ion-label position="stacked">Zip Code</ion-label>
+        <ion-input fxFlex type="text" formControlName="zip"></ion-input>
+      </ion-item>
+    </form>
+      <ion-button expand="block" [disabled]="form.invalid" color="primary" (click)="saveProfile()">Save Profile</ion-button>
+  </div>
+</ion-content>

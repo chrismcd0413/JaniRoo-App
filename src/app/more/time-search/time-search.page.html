@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Work History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div fxFlex fxLayout="column">
+    <div fxFlex class="date-area" fxLayoutAlign="start center">
+      <ion-button fill="clear" (click)="changeWeek(false)">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+      <span class="global-info-header center-text" fxFlex>{{ startDate | date:'MM/dd' }} - {{ endDate | date:'MM/dd' }}</span>
+      <ion-button fill="clear" (click)="changeWeek(true)" [disabled]="forwardDisabled">
+        <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

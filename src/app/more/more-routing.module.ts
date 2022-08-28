@@ -9,6 +9,14 @@ const routes: Routes = [
     path: '',
     component: MorePage,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'time-search',
+    loadChildren: () => import('./time-search/time-search.module').then( m => m.TimeSearchPageModule)
   }
 ];
 

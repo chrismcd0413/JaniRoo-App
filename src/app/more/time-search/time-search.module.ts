@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MorePageRoutingModule } from './more-routing.module';
+import { TimeSearchPageRoutingModule } from './time-search-routing.module';
 
-import { MorePage } from './more.page';
+import { TimeSearchPage } from './time-search.page';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     FormsModule,
     IonicModule,
-    MorePageRoutingModule,
+    TimeSearchPageRoutingModule,
     FlexLayoutModule
   ],
-  declarations: [MorePage]
+  declarations: [TimeSearchPage]
 })
-export class MorePageModule {}
+export class TimeSearchPageModule {}
