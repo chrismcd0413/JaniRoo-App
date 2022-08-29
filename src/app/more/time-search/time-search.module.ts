@@ -8,6 +8,7 @@ import { TimeSearchPageRoutingModule } from './time-search-routing.module';
 
 import { TimeSearchPage } from './time-search.page';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     IonicModule,
     TimeSearchPageRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    PipesModule
   ],
   declarations: [TimeSearchPage]
 })

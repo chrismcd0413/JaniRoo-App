@@ -3,3 +3,22 @@
   border-bottom: 1px solid black;
   background-color: lightgray;
 }
+.table-header {
+  padding: 8px;
+  margin-top: 16px;
+  background-color: lightgray;
+  border-bottom: 1px solid gray;
+  border-top: 1px solid gray;
+}
+// .table {
+//   // padding: 8px;
+// }
+.table-row {
+  border-bottom: 1px solid gray;
+}
+.table-row-container {
+  padding: 8px;
+}
+.no-ts-available {
+  padding: 16px;
+}

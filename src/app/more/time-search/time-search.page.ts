@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/shared-services/firestore.service';
 import { MoreDataService } from 'src/app/shared-services/more/more-data.service';
 import { UserService } from 'src/app/shared-services/user.service';
+import { Timestamp } from '@firebase/firestore';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-search',
@@ -13,12 +15,15 @@ import { UserService } from 'src/app/shared-services/user.service';
   styleUrls: ['./time-search.page.scss'],
 })
 export class TimeSearchPage implements OnInit, OnDestroy {
-  locations;
+  locations = [];
   timesheets = [];
   startDate: Date;
   endDate: Date;
   forwardDisabled = true;
+  accounts = [];
   private subs: Subscription[] = [];
+  private indicatorFallback;
+  private timesheetSub: Subscription;
   constructor(
     private moreDataService: MoreDataService,
     private userService: UserService,
@@ -32,35 +37,41 @@ export class TimeSearchPage implements OnInit, OnDestroy {
     );
     this.startDate = moment().startOf('W').toDate();
     this.endDate = moment().endOf('W').toDate();
-    console.log('Start Date: ', this.startDate);
+    this.loadTimesheets(moment(this.startDate.toISOString()), moment(this.endDate.toISOString()));
   }
 
   ngOnDestroy() {
     this.subs.forEach(x => x.unsubscribe());
+    this.timesheetSub.unsubscribe();
   }
 
   loadTimesheets(start, end) {
     const query_start = this.fb.generateQueryDateLocal(start);
     const query_end = this.fb.generateQueryDateLocal(end);
-
+    let loading;
     this.loadingController.create({
       message: 'Loading history'
     }).then(loadingIndicator => {
       loadingIndicator.present();
-      this.moreDataService.fetchTimesheets(query_start, query_end)
-      .subscribe(loadedTimesheets => {
+      loading = loadingIndicator;
+      if (this.timesheetSub) {
+        this.timesheetSub.unsubscribe();
+      }
+      this.timesheetSub = this.moreDataService.fetchTimesheets(query_start, query_end)
+      .subscribe((loadedTimesheets: any[]) => {
         this.timesheets = loadedTimesheets;
         loadingIndicator.dismiss();
-      }, () => {
-        this.moreDataService.createToast('Error: Please try again', 5000);
-        loadingIndicator.dismiss();
+        console.log('TS: ', JSON.stringify(loadedTimesheets));
       });
+    }).catch(() => {
+      this.moreDataService.createToast('Error: Please try again', 5000);
+      loading.dismiss();
     });
   }
 
   changeWeek(forward: boolean) {
-    let start;
-    let end;
+    let start = moment();
+    let end = moment();
     if (forward) {
       start = moment(this.startDate.toISOString()).add(1, 'week');
       end = moment(this.endDate.toISOString()).add(1, 'week');
@@ -68,14 +79,14 @@ export class TimeSearchPage implements OnInit, OnDestroy {
       start = moment(this.startDate.toISOString()).subtract(1, 'week');
       end = moment(this.endDate.toISOString()).subtract(1, 'week');
     }
-    this.startDate = start;
-    this.endDate = end;
+    this.startDate = start.toDate();
+    this.endDate = end.toDate();
 
     if (moment() > start && moment() < end) {
       this.forwardDisabled = true;
     } else {
       this.forwardDisabled = false;
     }
-    // this.loadTimesheets(start, end);
+    this.loadTimesheets(start, end);
   }
 }

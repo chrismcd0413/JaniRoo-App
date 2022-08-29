@@ -14,7 +14,7 @@
     <span fxFlex class="content-text">Location Notes: {{ pageAccount | locationNotes:accounts:false}}</span>
   </div>
   <div fxFlex fxLayout="column" fxLayoutGap="16px" class="container">
-    <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkin()">Check In</ion-button>
+    <!-- <ion-button color="primary" *ngIf="!isCheckedIn" (click)="checkin()">Check In</ion-button> -->
     <!-- <span class="section-header-text">Today's Schedule</span>
     <app-admin-schedules-view></app-admin-schedules-view>
     <span class="section-header-text">Today's Checklists</span>
@@ -25,7 +25,7 @@
       <ion-progress-bar value="0.25" style="height: 5px"></ion-progress-bar>
       <ion-button color="primary">View Checklist</ion-button>
     </div> -->
-    <span *ngIf="permission.inspection" class="section-header-text">Inspection</span>
+    <!-- <span *ngIf="permission.inspection" class="section-header-text">Inspection</span>
     <div *ngIf="permission.inspection" fxFlex fxLayout="row" fxLayoutGap="10px" class="global-info-box" (click)="enterInspection()">
       <span fxFlex class="section-header-text">Start Inspection</span>
       <ion-icon name="chevron-forward-outline"></ion-icon>
@@ -36,7 +36,7 @@
       <span fxFlex class="global-info-content">Score: 75%</span>
       <ion-progress-bar value="0.75" style="height: 5px"></ion-progress-bar>
       <ion-button color="primary" (click)="enterInspection()">Continue Inspection</ion-button>
-    </div>
+    </div> -->
     <span *ngIf="permission.inventory" class="section-header-text">Inventory</span>
     <div *ngIf="permission.inventory" fxFlex fxLayout="row" fxLayoutGap="10px" class="global-info-box" (click)="enterInventory()">
       <span fxFlex class="section-header-text">View / Edit Inventory</span>

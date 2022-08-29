@@ -16,5 +16,20 @@
         <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
       </ion-button>
     </div>
+    <div fxFlex class="table-header">
+      <span fxFlex class="global-info-content">Location</span>
+      <span fxFlex class="global-info-content">Day</span>
+      <span fxFlex class="global-info-content">Times</span>
+    </div>
+    <div class="table" fxFlex fxLayout="Column" *ngIf="timesheets.length !== 0">
+      <div class="table-row" fxFlex *ngFor="let ts of timesheets">
+        <div fxFlex class="table-row-container">
+          <span fxFlex class="global-info-content">{{ ts.location | locationName:locations:false }}</span>
+          <span fxFlex class="global-info-content">{{ ts.clock_in_time.toDate() | date: 'MMM d'}}</span>
+          <span fxFlex class="global-info-content">{{ ts.clock_in_time.toDate() | date: 'h:mma' }} - {{ !ts.clock_out_time ? 'On Duty' : ts.clock_out_time.toDate() | date: 'h:mma' }}</span>
+        </div>
+      </div>
+    </div>
+    <!-- <span fxFlex class="no-ts-available global-info-content center-text" ngIf="timesheets.length === 0">No History Available</span> -->
   </div>
 </ion-content>

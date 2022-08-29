@@ -28,7 +28,7 @@ export class MoreDataService {
     return this.fb.collection('Timesheets', (ref) =>
     ref
     .where('query_start', '>=', start)
-    .where('query_end', '<=', end)
+    .where('query_start', '<=', end)
     .where('user', '==', this.user.details.id)).valueChanges({idField: 'id'});
   }
 
